@@ -3,7 +3,8 @@ from django.urls import path
 from vehicle.apps import VehicleConfig
 from rest_framework.routers import DefaultRouter
 
-from vehicle.views import CarViewSet, MotoCreateView, MotoListView, MotoRetrieveView, MotoUpdateView, MotoDestroyView
+from vehicle.views import CarViewSet, MotoCreateView, MotoListView, MotoRetrieveView, MotoUpdateView, MotoDestroyView, \
+    MilageCreateView
 
 app_name = VehicleConfig.name
 router = DefaultRouter()
@@ -15,5 +16,7 @@ urlpatterns = [
                   path('moto/<int:pk>/', MotoRetrieveView.as_view(), name='moto_view'),
                   path('moto/update/<int:pk>/', MotoUpdateView.as_view(), name='moto_update'),
                   path('moto/delete/<int:pk>/', MotoDestroyView.as_view(), name='moto_delete'),
+                  # milage
+                  path('milage/create/', MilageCreateView.as_view(), name='milage_create'),
 
               ] + router.urls
