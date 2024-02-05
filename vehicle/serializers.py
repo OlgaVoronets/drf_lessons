@@ -3,13 +3,19 @@ from rest_framework import serializers
 from vehicle.models import Car, Moto, Milage
 
 
+class MilageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Milage
+        fields = '__all__'
+
+
 class CarSerializer(serializers.ModelSerializer):
     """Работа со встроенными полями
     Модель milage ссылается по foreignKey на модель Car,
     поэтому Car имеет свой milage_set(набор пробегов для конкретной машины).
     Ниже способ достать последний(самый новый если сортировка в обратном порядке, иначе - last). """
     last_milage = serializers.IntegerField(source='milage_set.all.first.milage')
-
+    milage = MilageSerializer(source='milage_set', many=True)
     class Meta:
         model = Car
         fields = '__all__'
@@ -29,7 +35,9 @@ class MotoSerializer(serializers.ModelSerializer):
         return 0
 
 
-class MilageSerializer(serializers.ModelSerializer):
+class MotoMilageSerializer(serializers.ModelSerializer):
+    moto = MotoSerializer()
+
     class Meta:
         model = Milage
-        fields = '__all__'
+        fields = ('milage', 'year', 'moto')
