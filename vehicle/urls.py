@@ -4,7 +4,7 @@ from vehicle.apps import VehicleConfig
 from rest_framework.routers import DefaultRouter
 
 from vehicle.views import CarViewSet, MotoCreateView, MotoListView, MotoRetrieveView, MotoUpdateView, MotoDestroyView, \
-    MilageCreateView, MotoMilageListView
+    MilageCreateView, MotoMilageListView, MilageListView
 
 app_name = VehicleConfig.name
 router = DefaultRouter()
@@ -17,6 +17,7 @@ urlpatterns = [
                   path('moto/update/<int:pk>/', MotoUpdateView.as_view(), name='moto_update'),
                   path('moto/delete/<int:pk>/', MotoDestroyView.as_view(), name='moto_delete'),
                   # milage
+                  path('milage/', MilageListView.as_view(), name='milage_list'),
                   path('milage/create/', MilageCreateView.as_view(), name='milage_create'),
                   path('moto/milage/', MotoMilageListView.as_view(), name='moto_milage_list'),
 
