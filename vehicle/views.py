@@ -1,16 +1,21 @@
 from rest_framework import viewsets, generics
 
 from vehicle.models import Car, Moto, Milage
-from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer, MotoMilageSerializer
+from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer, MotoMilageSerializer, \
+    MotoCreateSerializer
 
 
 class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
     queryset = Car.objects.all()
 
+    # def post(self, *args, **kwargs):
+    #     """кастомизация сериализатора для вьюсета"""
+    #     self.serializer_class = """новый класс сериализатор"""
+
 
 class MotoCreateView(generics.CreateAPIView):
-    serializer_class = MotoSerializer
+    serializer_class = MotoCreateSerializer
 
 
 class MotoListView(generics.ListAPIView):
