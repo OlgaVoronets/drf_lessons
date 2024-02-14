@@ -14,7 +14,7 @@ class CarSerializer(serializers.ModelSerializer):
     Модель milage ссылается по foreignKey на модель Car,
     поэтому Car имеет свой milage_set(набор пробегов для конкретной машины).
     Ниже способ достать последний(самый новый если сортировка в обратном порядке, иначе - last). """
-    last_milage = serializers.IntegerField(source='milage_set.all.first.milage')
+    last_milage = serializers.IntegerField(source='milage.all.first.milage')
     milage = MilageSerializer(many=True)
     class Meta:
         model = Car
