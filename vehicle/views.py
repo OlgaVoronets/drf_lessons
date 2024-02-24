@@ -5,6 +5,7 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated
 
 from vehicle.models import Car, Moto, Milage
+from vehicle.paginators import VehiclePaginator
 from vehicle.permissions import IsOwnerOrStaff
 from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer, MotoMilageSerializer, \
     MotoCreateSerializer
@@ -35,6 +36,7 @@ class MotoCreateView(generics.CreateAPIView):
 class MotoListView(generics.ListAPIView):
     serializer_class = MotoSerializer
     queryset = Moto.objects.all()
+    pagination_class = VehiclePaginator
 
 
 class MotoRetrieveView(generics.RetrieveAPIView):
