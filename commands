@@ -1,0 +1,4 @@
+coverage report
+coverage run manage.py test
+python manage.py test vehicle.tests.VehicleTestCase.test_list_car
+python manage.py test

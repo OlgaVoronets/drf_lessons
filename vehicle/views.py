@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 
 from rest_framework.filters import OrderingFilter
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from vehicle.models import Car, Moto, Milage
 from vehicle.paginators import VehiclePaginator
@@ -14,7 +14,7 @@ from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer,
 class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
     queryset = Car.objects.all()
-    permission_classes = [IsAuthenticated]  # если в сеттингах 'DEFAULT_PERMISSION_CLASSES': AllowAny'
+    permission_classes = [AllowAny]  # если в сеттингах 'DEFAULT_PERMISSION_CLASSES': AllowAny'
 
     # def post(self, *args, **kwargs):
     #     """кастомизация сериализатора для вьюсета"""
