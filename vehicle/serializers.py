@@ -17,9 +17,13 @@ class CarSerializer(serializers.ModelSerializer):
     Ниже способ достать последний(самый новый если сортировка в обратном порядке, иначе - last). """
     last_milage = serializers.IntegerField(source='milage.all.first.milage')
     milage = MilageSerializer(many=True)
+
     class Meta:
         model = Car
         fields = '__all__'
+        validators = [TitleValidator(),
+                      serializers.UniqueTogetherValidator(fields=['title', 'description'], queryset=Car.objects.all())
+                      ]
 
 
 class MotoSerializer(serializers.ModelSerializer):
