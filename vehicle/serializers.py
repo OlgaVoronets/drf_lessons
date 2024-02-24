@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from vehicle.models import Car, Moto, Milage
+from vehicle.validators import TitleValidator
 
 
 class MilageSerializer(serializers.ModelSerializer):
@@ -16,9 +17,13 @@ class CarSerializer(serializers.ModelSerializer):
     Ниже способ достать последний(самый новый если сортировка в обратном порядке, иначе - last). """
     last_milage = serializers.IntegerField(source='milage.all.first.milage')
     milage = MilageSerializer(many=True)
+
     class Meta:
         model = Car
         fields = '__all__'
+        validators = [TitleValidator(),
+                      serializers.UniqueTogetherValidator(fields=['title', 'description'], queryset=Car.objects.all())
+                      ]
 
 
 class MotoSerializer(serializers.ModelSerializer):
@@ -49,6 +54,9 @@ class MotoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Moto
         fields = '__all__'
+        validators = [TitleValidator(),
+                      serializers.UniqueTogetherValidator(fields=['title', 'description'], queryset=Moto.objects.all())
+                      ]
 
     def create(self, validated_data):
         """убираем набор объектов по ключу 'milage', тк у мото нет поля миладж и добавить его туда нельзя"""
