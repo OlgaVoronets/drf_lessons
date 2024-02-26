@@ -12,6 +12,7 @@ from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer,
 
 
 class CarViewSet(viewsets.ModelViewSet):
+    """Viewset для работы с моделью машины"""
     serializer_class = CarSerializer
     queryset = Car.objects.all()
     permission_classes = [AllowAny]  # если в сеттингах 'DEFAULT_PERMISSION_CLASSES': AllowAny'
@@ -22,6 +23,7 @@ class CarViewSet(viewsets.ModelViewSet):
 
 
 class MotoCreateView(generics.CreateAPIView):
+    """Endpoint создания мотоцикла"""
     serializer_class = MotoCreateSerializer
     permission_classes = [IsAuthenticated]
 
@@ -34,23 +36,27 @@ class MotoCreateView(generics.CreateAPIView):
 
 
 class MotoListView(generics.ListAPIView):
+    """Endpoint вывода списка мотоциклов"""
     serializer_class = MotoSerializer
     queryset = Moto.objects.all()
     pagination_class = VehiclePaginator
 
 
 class MotoRetrieveView(generics.RetrieveAPIView):
+    """Endpoint просмотра мотоцикла"""
     serializer_class = MotoSerializer
     queryset = Moto.objects.all()
 
 
 class MotoUpdateView(generics.UpdateAPIView):
+    """Endpoint редактирования мотоцикла"""
     serializer_class = MotoSerializer
     queryset = Moto.objects.all()
     permission_classes = [IsOwnerOrStaff]
 
 
 class MotoDestroyView(generics.DestroyAPIView):
+    """Endpoint удаления мотоцикла"""
     queryset = Moto.objects.all()
 
 
