@@ -9,6 +9,7 @@ from vehicle.paginators import VehiclePaginator
 from vehicle.permissions import IsOwnerOrStaff
 from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer, MotoMilageSerializer, \
     MotoCreateSerializer
+from vehicle.tasks import check_milage
 
 
 class CarViewSet(viewsets.ModelViewSet):
@@ -62,6 +63,14 @@ class MotoDestroyView(generics.DestroyAPIView):
 
 class MilageCreateView(generics.CreateAPIView):
     serializer_class = MilageSerializer
+
+    def perform_create(self, serializer):
+        """Переопределение метода для проверки корректности пробега"""
+        new_milage = serializer.save()
+        if new_milage.car:
+            check_milage.delay(new_milage.car_id, "Car")
+        else:
+            check_milage.delay(new_milage.moto_id, "Moto")
 
 
 class MilageListView(generics.ListAPIView):
