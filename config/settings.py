@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django_filters',
 
     'users',
-    'vehicle'
+    'vehicle',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +163,6 @@ SIMPLE_JWT = {
 # ]
 
 # CORS_ALLOW_ALL_ORIGINS = False
+CUR_API_URL = 'https://api.currencyapi.com/'
+CUR_API_KEY = 'cur_live_3hAgJ4pN1bK08XZSLP87qpAk5J5AlMxlbzu6tQcd'
+
