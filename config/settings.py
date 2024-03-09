@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'django_celery_beat',
 
     'users',
     'vehicle',
@@ -112,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -165,4 +166,28 @@ SIMPLE_JWT = {
 # CORS_ALLOW_ALL_ORIGINS = False
 CUR_API_URL = 'https://api.currencyapi.com/'
 CUR_API_KEY = 'cur_live_3hAgJ4pN1bK08XZSLP87qpAk5J5AlMxlbzu6tQcd'
+
+# Настройки для Celery
+
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'  # Например, Redis, который по умолчанию работает на порту 6379
+
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+
+# CELERY_BEAT_SCHEDULE = {
+#     'task-name': {
+#         'task': 'myapp.tasks.my_task',  # Путь к задаче
+#         'schedule': timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
+#     },
+# }
+
+# Часовой пояс для работы Celery
+# CELERY_TIMEZONE = "Europe/Moskow"
+
+# Флаг отслеживания выполнения задач
+# CELERY_TASK_TRACK_STARTED = True
+
+# Максимальное время на выполнение задачи
+# CELERY_TASK_TIME_LIMIT = 30 * 60
 
